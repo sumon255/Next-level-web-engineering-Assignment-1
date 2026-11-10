@@ -1,0 +1,98 @@
+function multiplyValue(value: number, multiplier: number = 2): number {
+  return value * multiplier;
+}
+
+
+
+type InputValue = string | number | boolean;
+type ProcessedResult = string | number;
+
+function processInput(input: InputValue): ProcessedResult {
+  if (typeof input === "string") {
+    return input.trim().toLowerCase();
+  }
+
+  if (typeof input === "number") {
+    return input * 10;
+  }
+  return input ? "Active" : "Inactive";
+}
+
+
+
+type CoordinateTuple = readonly [latitude: number, longitude: number, locationName: string];
+
+function formatCoordinate(coordinate: CoordinateTuple): string {
+  const [latitude, longitude, locationName] = coordinate;
+  return `Location: ${locationName} (${latitude}, ${longitude})`;
+}
+
+
+
+function concatenateArrays<T>(...arrays: T[][]): T[] {
+  return arrays.flat();
+}
+
+
+
+interface Course {
+  title: string;
+  students: number;
+  isPublished: boolean;
+}
+
+function getPopularCourses(courses: Course[], minStudents: number): Course[] {
+  return courses.filter(
+    (course) => course.isPublished && course.students >= minStudents
+  );
+}
+
+
+
+function pluckValues<T, K extends keyof T>(items: T[], key: K): T[K][] {
+  return items.map((item) => item[key]);
+}
+
+
+
+class Employee {
+  protected name: string;
+  private baseSalary: number;
+
+  constructor(name: string, baseSalary: number) {
+    this.name = name;
+    this.baseSalary = baseSalary;
+  }
+
+  getDetails(): string {
+    return `Employee: ${this.name}, Base Salary: ${this.baseSalary}`;
+  }
+}
+
+class Manager extends Employee {
+  private department: string;
+
+  constructor(name: string, baseSalary: number, department: string) {
+    super(name, baseSalary);
+    this.department = department;
+  }
+
+  getRoleInfo(): string {
+    return `Manager of ${this.department}: ${this.name}`;
+  }
+}
+
+
+
+function validateAgeAsync(age: number): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (age < 18) {
+      reject(new Error("Access Denied: Must be 18 or older"));
+      return;
+    }
+
+    setTimeout(() => {
+      resolve("Access Granted");
+    }, 1000);
+  });
+}
